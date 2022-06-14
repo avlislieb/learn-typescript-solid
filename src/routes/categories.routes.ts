@@ -10,22 +10,10 @@ const categoriesRepository = new CategoriesRepository();
 
 categoriesRoutes.post("/", (request, response) => {
   const { name, description } = request.body;
-  // const category = new Category()
-  // Object.assign(category, {
-  //     name, description, created_at: new Date()
-  // })
   const requiredFields = ["name", "description"];
-  // for (let field of requiredFields) {
-  //   if (!request.body[field]) {
-  //     response.status(422).json({
-  //       error: `${field} is required`,
-  //     });
-  //   }
-  // }
 
   requiredFields.forEach((field) => {
     if (!request.body[field]) {
-      console.log("request.body[field]", request.body[field]);
       return response.status(422).json({
         error: `${field} is required`,
       });
@@ -42,7 +30,6 @@ categoriesRoutes.post("/", (request, response) => {
   }
 
   categoriesRepository.store({ name, description });
-  // categories.push(category)
 
   return response.status(201).send();
 });
